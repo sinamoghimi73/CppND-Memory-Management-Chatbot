@@ -1,60 +1,43 @@
-#include "graphedge.h"
 #include "graphnode.h"
 
-GraphNode::GraphNode(int id)
-{
-    _id = id;
+#include <iostream>
+
+#include "chatlogic.h"
+#include "graphedge.h"
+
+GraphNode::GraphNode(int id) { _id = id; }
+
+GraphNode::~GraphNode() {
+  //// (DONE!)
+  /// Since the chatBot is on the stack
 }
 
-GraphNode::~GraphNode()
-{
-    //// STUDENT CODE
-    ////
+void GraphNode::AddToken(std::string token) { _answers.push_back(token); }
 
-    delete _chatBot; 
-
-    ////
-    //// EOF STUDENT CODE
+void GraphNode::AddEdgeToParentNode(GraphEdge *edge) {
+  _parentEdges.push_back(edge);
 }
 
-void GraphNode::AddToken(std::string token)
-{
-    _answers.push_back(token);
+void GraphNode::AddEdgeToChildNode(GraphEdge *edge) {
+  /// Since the edge was a Unique Smart_ptr
+  _childEdges.push_back(std::unique_ptr<GraphEdge>(edge));
 }
 
-void GraphNode::AddEdgeToParentNode(GraphEdge *edge)
-{
-    _parentEdges.push_back(edge);
+//// (DONE!)
+void GraphNode::MoveChatbotHere(ChatBot &&chatBot) {
+  _chatBot = std::move(chatBot);
+
+  /// Update the _chatBot handle inside ChatLogic
+  _chatBot.GetChatLogicHandle()->SetChatbotHandle(&_chatBot);
+  _chatBot.SetCurrentNode(this);
 }
 
-void GraphNode::AddEdgeToChildNode(GraphEdge *edge)
-{
-    _childEdges.push_back(edge);
+void GraphNode::MoveChatbotToNewNode(GraphNode *newNode) {
+  newNode->MoveChatbotHere(std::move(_chatBot));
 }
 
-//// STUDENT CODE
-////
-void GraphNode::MoveChatbotHere(ChatBot *chatbot)
-{
-    _chatBot = chatbot;
-    _chatBot->SetCurrentNode(this);
-}
-
-void GraphNode::MoveChatbotToNewNode(GraphNode *newNode)
-{
-    newNode->MoveChatbotHere(_chatBot);
-    _chatBot = nullptr; // invalidate pointer at source
-}
-////
-//// EOF STUDENT CODE
-
-GraphEdge *GraphNode::GetChildEdgeAtIndex(int index)
-{
-    //// STUDENT CODE
-    ////
-
-    return _childEdges[index];
-
-    ////
-    //// EOF STUDENT CODE
+GraphEdge *GraphNode::GetChildEdgeAtIndex(int index) {
+  //// (DONE!)
+  /// Since _childEdges were of kind Unique Smart_ptr we use "get" method.
+  return _childEdges[index].get();
 }
