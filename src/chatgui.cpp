@@ -4,6 +4,7 @@
 #include <wx/filename.h>
 #include <wx/image.h>
 
+#include <memory>
 #include <string>
 
 #include "chatbot.h"

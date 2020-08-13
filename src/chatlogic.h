@@ -1,6 +1,7 @@
 #ifndef CHATLOGIC_H_
 #define CHATLOGIC_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 

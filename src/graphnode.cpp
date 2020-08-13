@@ -1,6 +1,7 @@
 #include "graphnode.h"
 
 #include <iostream>
+#include <memory>
 
 #include "chatlogic.h"
 #include "graphedge.h"

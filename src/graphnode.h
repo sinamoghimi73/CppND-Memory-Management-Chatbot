@@ -1,6 +1,7 @@
 #ifndef GRAPHNODE_H_
 #define GRAPHNODE_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 
