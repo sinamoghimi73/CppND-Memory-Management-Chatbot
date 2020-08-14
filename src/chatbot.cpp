@@ -23,13 +23,13 @@ ChatBot::ChatBot(std::string filename, int count)
       _rootNode{nullptr},
       _currentNode{nullptr},
       _count{0} {
-  std::cout << "ChatBot Constructor Called" << std::endl;
+  std::cout << "ChatBot Constructor" << std::endl;
   // load image into heap memory
   _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
 }
 
 ChatBot::~ChatBot() {
-  std::cout << "ChatBot Destructor Called" << std::endl;
+  std::cout << "ChatBot Destructor" << std::endl;
   //// (Done!)
 }
 
@@ -83,7 +83,7 @@ ChatBot::ChatBot(ChatBot &&src) {
 
 /// Move Assignment
 ChatBot &ChatBot::operator=(ChatBot &&src) {
-  std::cout << "ChatBot Move Assignment" << std::endl;
+  std::cout << "ChatBot Move Assignment Operator" << std::endl;
   switch ((&src == this) ? 1 : 0) {
     case 0:
       /// Move handles to this object
