@@ -19,21 +19,23 @@ void GraphNode::AddEdgeToParentNode(GraphEdge *edge) {
   _parentEdges.push_back(edge);
 }
 
-void GraphNode::AddEdgeToChildNode(GraphEdge *edge) {
+/// Made edge as a uninque pointer
+void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge) {
   /// Since the edge was a Unique Smart_ptr
-  _childEdges.push_back(std::unique_ptr<GraphEdge>(edge));
+  _childEdges.push_back(std::move(edge));
 }
 
 //// (DONE!)
-void GraphNode::MoveChatbotHere(ChatBot &&chatBot) {
+/// removed the reference to chatbot!
+void GraphNode::MoveChatbotHere(ChatBot chatBot) {
   _chatBot = std::move(chatBot);
-
   /// Update the _chatBot handle inside ChatLogic
   _chatBot.GetChatLogicHandle()->SetChatbotHandle(&_chatBot);
   _chatBot.SetCurrentNode(this);
 }
 
 void GraphNode::MoveChatbotToNewNode(GraphNode *newNode) {
+  /// using move constructor
   newNode->MoveChatbotHere(std::move(_chatBot));
 }
 
