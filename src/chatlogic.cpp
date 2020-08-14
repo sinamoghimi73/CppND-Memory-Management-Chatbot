@@ -158,7 +158,10 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename) {
 
               // store reference in child node and parent node
               (*childNode)->AddEdgeToParentNode(edge);
-              (*parentNode)->AddEdgeToChildNode(edge);
+
+              /// Converted (GraphEdge *) to unique_ptr<GraphEdge>
+              (*parentNode)
+                  ->AddEdgeToChildNode(std::make_unique<GraphEdge>(*edge));
             }
           }
         } else {
@@ -200,6 +203,8 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename) {
 
   // add stackBot to graph root node
   stackBot.SetRootNode(rootNode);
+
+  /// using move constructor
   rootNode->MoveChatbotHere(std::move(stackBot));
 }
 
