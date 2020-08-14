@@ -41,11 +41,14 @@ class GraphNode {
   // proprietary functions
   void AddToken(std::string token);  // add answers to list
   void AddEdgeToParentNode(GraphEdge *edge);
-  void AddEdgeToChildNode(GraphEdge *edge);
+
+  /// Made edge as a uninque pointer
+  void AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge);
 
   //// (DONE!)
   /// Using Move Constructor
-  void MoveChatbotHere(ChatBot &&chatbot);
+  /// removed the reference to chatbot!
+  void MoveChatbotHere(ChatBot chatbot);
 
   void MoveChatbotToNewNode(GraphNode *newNode);
 };
